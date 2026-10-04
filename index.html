@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+
+<!--
+===========================================================================
+  PORTFOLIO STARTER
+  One file. No build step, no dependencies. Edit it, then deploy it.
+
+  Everything you change is marked [EDIT]. Nothing else needs touching.
+
+  START HERE — Find and Replace (Ctrl+H, or Cmd+H on a Mac):
+    YOUR NAME       ->  your name
+    YOUR@EMAIL.COM  ->  your email
+    yourusername    ->  your GitHub username
+
+  Save, open it in a browser, and you already have a working site. Then fill
+  in the three projects — a number in every line.
+
+  Full docs, colour presets and deploy steps are in README.md.
+
+  This page is meant to last. Nothing in it says "student", so when you are
+  not one any more you change the words, not the website.
+
+  MIT licensed. Make it yours.
+===========================================================================
+-->
+
+<title>YOUR NAME — Developer</title>                              <!-- [EDIT] -->
+<meta name="description" content="Portfolio of YOUR NAME — projects, skills and how to get in touch."> <!-- [EDIT] -->
+<meta property="og:title" content="YOUR NAME — Developer">        <!-- [EDIT] -->
+<meta property="og:description" content="Projects, skills and how to reach me."> <!-- [EDIT] -->
+<meta property="og:type" content="website">
+
+<!-- Sets the theme before the page paints, so there's no white flash. -->
+<script>
+  (function () {
+    try {
+      var saved = localStorage.getItem("theme");
+      if (saved === "light" || saved === "dark") {
+        document.documentElement.setAttribute("data-theme", saved);
+      }
+    } catch (e) { /* private browsing — system theme is fine */ }
+  })();
+</script>
+
+<style>
+  /* =====================================================================
+     1. COLOURS   — change --accent and the whole page follows.
+     ===================================================================== */
+  :root{
+    --accent:#C2410C;            /* [EDIT] your one colour. #2563EB blue, #059669 green, #7C3AED purple */
+    --accent-soft:rgba(194,65,12,.10);   /* [EDIT] same colour, 10% — used for soft fills */
+
+    --bg:#FBFAF9; --bg-tint:#F4F1EE; --surface:#FFFFFF;
+    --ink:#171311; --mute:#5C534D; --faint:#8C837C;
+    --line:#E7E1DB; --line-soft:#F0EBE6;
+    --shadow:0 1px 2px rgba(23,19,17,.04), 0 8px 24px -12px rgba(23,19,17,.10);
+    --shadow-lift:0 2px 4px rgba(23,19,17,.05), 0 18px 40px -16px rgba(23,19,17,.18);
+    --radius:16px;
+  }
+  /* follow the system, unless the visitor picked light with the toggle */
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0F0E0D; --bg-tint:#161413; --surface:#171514;
+      --ink:#F4F0EC; --mute:#A79E96; --faint:#7B726B;
+      --line:#2A2622; --line-soft:#201D1A;
+      --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+      --shadow-lift:0 2px 4px rgba(0,0,0,.35), 0 18px 40px -16px rgba(0,0,0,.6);
+    }
+  }
+  /* and when the visitor picks dark explicitly */
+  :root[data-theme="dark"]{
+    --bg:#0F0E0D; --bg-tint:#161413; --surface:#171514;
+    --ink:#F4F0EC; --mute:#A79E96; --faint:#7B726B;
+    --line:#2A2622; --line-soft:#201D1A;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+    --shadow-lift:0 2px 4px rgba(0,0,0,.35), 0 18px 40px -16px rgba(0,0,0,.6);
+  }
+
+  /* =====================================================================
+     2. BASE
+     ===================================================================== */
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{
+    background:var(--bg);color:var(--ink);
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    line-height:1.65;-webkit-font-smoothing:antialiased;
+    padding:0 20px;position:relative;overflow-x:hidden;
+    transition:background .25s ease,color .25s ease;
+  }
+  /* a soft wash behind the top of the page, so it isn't a flat slab */
+  body::before{
+    content:"";position:fixed;inset:0 0 auto;height:70vh;pointer-events:none;z-index:0;
+    background:
+      radial-gradient(60% 50% at 18% 0%, var(--accent-soft), transparent 70%),
+      linear-gradient(180deg, var(--bg-tint), transparent 75%);
+  }
+  .wrap{max-width:820px;margin:0 auto;position:relative;z-index:1}
+  a{color:inherit}
+  ::selection{background:var(--accent);color:#fff}
+
+  /* =====================================================================
+     3. THEME TOGGLE  (you don't need to edit any of this)
+     ===================================================================== */
+  .theme{
+    position:fixed;top:18px;right:18px;z-index:20;
+    width:42px;height:42px;border-radius:50%;cursor:pointer;
+    display:grid;place-items:center;
+    background:var(--surface);border:1px solid var(--line);
+    box-shadow:var(--shadow);color:var(--ink);
+    transition:border-color .2s,transform .2s,background .25s;
+  }
+  .theme:hover{border-color:var(--accent);transform:scale(1.06)}
+  .theme:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+  .theme svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7;
+    stroke-linecap:round;stroke-linejoin:round}
+  .theme .moon{display:none}
+  :root[data-theme="dark"] .theme .sun{display:none}
+  :root[data-theme="dark"] .theme .moon{display:block}
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]) .theme .sun{display:none}
+    :root:not([data-theme="light"]) .theme .moon{display:block}
+  }
+
+  /* =====================================================================
+     4. HEADER
+     ===================================================================== */
+  header{padding:clamp(66px,12vw,118px) 0 clamp(30px,5vw,50px)}
+
+  .avatar{
+    width:clamp(84px,13vw,112px);height:clamp(84px,13vw,112px);
+    border-radius:50%;display:block;margin-bottom:26px;
+    border:1px solid var(--line);box-shadow:var(--shadow);
+    object-fit:cover;background:var(--surface);
+  }
+
+  .status{
+    display:inline-flex;align-items:center;gap:8px;margin-bottom:18px;
+    font-size:12.5px;font-weight:600;letter-spacing:.04em;
+    color:var(--accent);background:var(--accent-soft);
+    border-radius:999px;padding:6px 14px;
+  }
+  .status i{
+    width:7px;height:7px;border-radius:50%;background:var(--accent);
+    animation:ping 2.4s ease-in-out infinite;
+  }
+  @keyframes ping{0%,100%{opacity:.35;transform:scale(1)}50%{opacity:1;transform:scale(1.3)}}
+
+  h1{
+    font-size:clamp(38px,8vw,68px);line-height:1.04;letter-spacing:-.035em;
+    font-weight:730;margin-bottom:18px;
+  }
+  .tagline{font-size:clamp(16.5px,2.4vw,21px);color:var(--mute);max-width:48ch}
+
+  .links{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+  .links a{
+    display:inline-flex;align-items:center;gap:7px;text-decoration:none;
+    font-size:14px;font-weight:550;padding:10px 17px;border-radius:999px;
+    border:1px solid var(--line);background:var(--surface);
+    box-shadow:var(--shadow);
+    transition:border-color .18s,transform .18s,box-shadow .18s;
+  }
+  .links a:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:var(--shadow-lift)}
+  .links a.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+  .links a.primary:hover{border-color:var(--accent)}
+  .links svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.8;
+    stroke-linecap:round;stroke-linejoin:round}
+
+  /* =====================================================================
+     5. SECTIONS
+     ===================================================================== */
+  section{padding:clamp(34px,5.5vw,62px) 0;border-top:1px solid var(--line-soft)}
+  .s-head{display:flex;align-items:baseline;gap:12px;margin-bottom:26px}
+  .s-head span{
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:12px;color:var(--accent);font-weight:600;
+  }
+  .s-head h2{
+    font-size:13px;letter-spacing:.17em;text-transform:uppercase;
+    color:var(--faint);font-weight:650;
+  }
+  .s-head::after{content:"";flex:1;height:1px;background:var(--line-soft)}
+
+  /* ---- projects ---- */
+  .projects{display:flex;flex-direction:column;gap:16px}
+  .project{
+    position:relative;background:var(--surface);border:1px solid var(--line);
+    border-radius:var(--radius);padding:clamp(20px,3vw,30px);
+    box-shadow:var(--shadow);overflow:hidden;
+    transition:border-color .22s,transform .22s,box-shadow .22s;
+  }
+  /* a thin accent edge that slides in on hover */
+  .project::before{
+    content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
+    background:var(--accent);transform:scaleY(0);transform-origin:top;
+    transition:transform .3s cubic-bezier(.22,.61,.36,1);
+  }
+  .project:hover{border-color:var(--line);transform:translateY(-3px);box-shadow:var(--shadow-lift)}
+  .project:hover::before{transform:scaleY(1)}
+
+  .p-top{display:flex;align-items:baseline;justify-content:space-between;gap:16px}
+  .project h3{font-size:clamp(18px,2.4vw,22px);font-weight:650;letter-spacing:-.015em}
+  .p-no{
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:12px;color:var(--faint);flex:none;
+  }
+  .stack{display:flex;flex-wrap:wrap;gap:6px;margin:11px 0 16px}
+  .stack span{
+    font-size:12px;font-weight:550;color:var(--accent);
+    background:var(--accent-soft);border-radius:6px;padding:3px 9px;
+  }
+  .project ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+  .project li{position:relative;padding-left:18px;font-size:15.5px;color:var(--mute)}
+  .project li::before{
+    content:"";position:absolute;left:0;top:.64em;width:6px;height:6px;
+    border-radius:50%;background:var(--accent);opacity:.45;
+  }
+  .more{
+    display:inline-flex;align-items:center;gap:6px;margin-top:17px;
+    font-size:13.5px;font-weight:650;color:var(--accent);text-decoration:none;
+  }
+  .more svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;
+    stroke-linecap:round;stroke-linejoin:round;transition:transform .2s}
+  .more:hover svg{transform:translateX(3px)}
+
+  /* ---- skills ---- */
+  .skills{display:flex;flex-direction:column;gap:15px}
+  .skill-row{display:flex;flex-wrap:wrap;align-items:center;gap:9px}
+  .skill-row b{
+    font-size:12.5px;font-weight:650;color:var(--faint);
+    min-width:94px;letter-spacing:.04em;text-transform:uppercase;
+  }
+  .tag{
+    font-size:13.5px;padding:6px 13px;border-radius:9px;
+    border:1px solid var(--line);background:var(--surface);color:var(--ink);
+    transition:border-color .18s,color .18s;
+  }
+  .tag:hover{border-color:var(--accent);color:var(--accent)}
+
+  /* ---- education / experience ---- */
+  .entry{
+    display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;
+    gap:10px;padding:17px 0;border-bottom:1px solid var(--line-soft);
+  }
+  .entry:last-child{border-bottom:none;padding-bottom:0}
+  .entry b{font-size:17px;font-weight:650;display:block}
+  .entry .where{color:var(--mute);font-size:15px}
+  .entry .when{
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:12.5px;color:var(--faint);flex:none;
+  }
+
+  /* ---- footer ---- */
+  footer{
+    padding:clamp(38px,6vw,70px) 0;border-top:1px solid var(--line-soft);
+    display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;
+    align-items:center;color:var(--faint);font-size:13.5px;
+  }
+  footer a{color:var(--accent);text-decoration:none;font-weight:600}
+  footer a:hover{text-decoration:underline}
+
+  /* ---- gentle fade-up; only switched on by JS, so no-JS still shows everything ---- */
+  .js .reveal{opacity:0;transform:translateY(14px)}
+  .js .reveal.in{opacity:1;transform:none;transition:opacity .6s ease,transform .6s cubic-bezier(.22,.61,.36,1)}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important}
+    html{scroll-behavior:auto}
+    .js .reveal{opacity:1;transform:none}
+  }
+  @media (max-width:560px){
+    .skill-row b{min-width:100%}
+    .theme{top:12px;right:12px}
+  }
+</style>
+</head>
+
+<body>
+
+<!-- theme toggle — leave this alone, it works by itself -->
+<button class="theme" id="themeBtn" type="button" aria-label="Switch between light and dark">
+  <svg class="sun" viewBox="0 0 24 24" aria-hidden="true">
+    <circle cx="12" cy="12" r="4.2"/>
+    <path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4"/>
+  </svg>
+  <svg class="moon" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M20 14.2A8.2 8.2 0 1 1 9.8 4a6.6 6.6 0 0 0 10.2 10.2z"/>
+  </svg>
+</button>
+
+<div class="wrap">
+
+  <!-- ====================== HEADER ====================== -->
+  <header>
+
+    <!-- AVATAR.
+         Right now this is a drawn placeholder with your initials in it.
+         To use a real photo: save it next to this file as photo.jpg, then
+         delete the whole <svg> below and uncomment this line instead:   -->
+    <!-- <img class="avatar" src="photo.jpg" alt="YOUR NAME"> -->
+
+    <svg class="avatar" viewBox="0 0 120 120" role="img" aria-label="YOUR NAME">
+      <defs>
+        <linearGradient id="av" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%"  stop-color="var(--accent)"/>
+          <stop offset="100%" stop-color="var(--accent)" stop-opacity=".55"/>
+        </linearGradient>
+      </defs>
+      <circle cx="60" cy="60" r="60" fill="url(#av)"/>
+      <text x="60" y="61" fill="#fff" font-size="44" font-weight="700"
+            font-family="system-ui,sans-serif" letter-spacing="1"
+            text-anchor="middle" dominant-baseline="central">YN</text>
+      <!-- [EDIT] your initials, two letters -->
+    </svg>
+
+    <div class="status"><i></i> Open to work</div>      <!-- [EDIT] or delete this line -->
+
+    <h1>YOUR NAME</h1>                                  <!-- [EDIT] -->
+
+    <p class="tagline">
+      I build websites and small tools. Right now I am looking for work where
+      I get to write real code.
+    </p>                                                <!-- [EDIT] two lines, in your own words -->
+
+    <div class="links">
+      <a class="primary" href="mailto:YOUR@EMAIL.COM">                       <!-- [EDIT] -->
+        <svg viewBox="0 0 24 24"><path d="M3 6.5h18v11H3z"/><path d="m3 7 9 6 9-6"/></svg>
+        Email me
+      </a>
+      <a href="https://github.com/yourusername">                             <!-- [EDIT] -->
+        <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.9a3.4 3.4 0 0 0-.9-2.6c3-.3 6.2-1.5 6.2-6.7A5.2 5.2 0 0 0 19 4.8a4.9 4.9 0 0 0-.1-3.6s-1.1-.3-3.7 1.4a12.6 12.6 0 0 0-6.6 0C6 .9 4.9 1.2 4.9 1.2A4.9 4.9 0 0 0 4.8 4.8 5.2 5.2 0 0 0 3.4 8.5c0 5.2 3.2 6.4 6.2 6.7a3.4 3.4 0 0 0-.9 2.6V21"/></svg>
+        GitHub
+      </a>
+      <a href="https://linkedin.com/in/yourusername">                        <!-- [EDIT] -->
+        <svg viewBox="0 0 24 24"><rect x="2.5" y="2.5" width="19" height="19" rx="3"/><path d="M7 10v7M7 7v.01M11.5 17v-4a2.5 2.5 0 0 1 5 0v4"/></svg>
+        LinkedIn
+      </a>
+      <a href="resume.pdf">   <!-- [EDIT] put your PDF beside this file, or delete this link -->
+        <svg viewBox="0 0 24 24"><path d="M14 2.5H6.5v19h11V6z"/><path d="M14 2.5V6h3.5"/></svg>
+        Resume
+      </a>
+    </div>
+  </header>
+
+  <!-- ====================== PROJECTS ======================
+       The section that actually gets you replies.
+       Three projects, three lines each, a NUMBER in every line.
+       Copy the bullets from your resume — they already work.
+
+       Four projects? Copy a whole <article> block.
+       One project? Delete the other two. One real one beats three empty ones.
+  ======================================================== -->
+  <section>
+    <div class="s-head"><span>01</span><h2>Projects</h2></div>
+    <div class="projects">
+
+      <article class="project reveal">
+        <div class="p-top">
+          <h3>PROJECT NAME</h3>                           <!-- [EDIT] -->
+          <span class="p-no">01</span>
+        </div>
+        <div class="stack"><span>Java</span><span>MySQL</span></div>  <!-- [EDIT] what you built it with -->
+        <ul>
+          <li>What it does, with a number in it — 500+ records, 3 departments</li>
+          <li>Something it made faster or easier, with the before and after</li>
+          <li>One thing you designed or decided yourself</li>
+        </ul>                                             <!-- [EDIT] all three -->
+        <a class="more" href="https://github.com/yourusername/project-one">  <!-- [EDIT] -->
+          View the code <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </article>
+
+      <article class="project reveal">
+        <div class="p-top">
+          <h3>PROJECT NAME</h3>                           <!-- [EDIT] -->
+          <span class="p-no">02</span>
+        </div>
+        <div class="stack"><span>HTML</span><span>CSS</span><span>JavaScript</span></div> <!-- [EDIT] -->
+        <ul>
+          <li>What it does, with a number in it</li>
+          <li>Who used it, or how many people it was for</li>
+          <li>The hardest part, and what you did about it</li>
+        </ul>                                             <!-- [EDIT] -->
+        <a class="more" href="https://github.com/yourusername/project-two">  <!-- [EDIT] -->
+          View the code <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </article>
+
+      <article class="project reveal">
+        <div class="p-top">
+          <h3>PROJECT NAME</h3>                           <!-- [EDIT] -->
+          <span class="p-no">03</span>
+        </div>
+        <div class="stack"><span>React</span><span>REST APIs</span></div>   <!-- [EDIT] -->
+        <ul>
+          <li>What it does, with a number in it</li>
+          <li>Something measurable you improved</li>
+          <li>What you added that the tutorial did not have</li>
+        </ul>                                             <!-- [EDIT] -->
+        <a class="more" href="https://github.com/yourusername/project-three"> <!-- [EDIT] -->
+          View the code <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ====================== SKILLS ====================== -->
+  <section>
+    <div class="s-head"><span>02</span><h2>Skills</h2></div>
+    <div class="skills reveal">
+      <!-- [EDIT] Only what you would survive one question about. Delete the rest. -->
+      <div class="skill-row">
+        <b>Languages</b>
+        <span class="tag">JavaScript</span><span class="tag">Java</span>
+        <span class="tag">Python</span><span class="tag">SQL</span>
+      </div>
+      <div class="skill-row">
+        <b>Web</b>
+        <span class="tag">HTML</span><span class="tag">CSS</span>
+        <span class="tag">React</span><span class="tag">REST APIs</span>
+      </div>
+      <div class="skill-row">
+        <b>Tools</b>
+        <span class="tag">Git</span><span class="tag">GitHub</span>
+        <span class="tag">MySQL</span><span class="tag">VS Code</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== EXPERIENCE ======================
+       Nothing to put here yet? Leave it commented out. The day you have an
+       internship or a job, delete the two comment markers, fill it in, and
+       move this whole <section> above Skills.
+  =========================================================
+  <section>
+    <div class="s-head"><span>03</span><h2>Experience</h2></div>
+    <div class="entry">
+      <div>
+        <b>JOB TITLE — COMPANY</b>
+        <span class="where">What you worked on, in one line with a number in it</span>
+      </div>
+      <span class="when">MONTH YEAR – present</span>
+    </div>
+  </section>
+  -->
+
+  <!-- ====================== EDUCATION ======================
+       Keep this near the bottom. Once you have a year or two of work behind
+       you, three lines is plenty — and you can delete it entirely when it
+       stops earning its place.
+  ========================================================= -->
+  <section>
+    <div class="s-head"><span>03</span><h2>Education</h2></div>
+    <div class="entry reveal">
+      <div>
+        <b>YOUR DEGREE</b>                                      <!-- [EDIT] -->
+        <span class="where">YOUR COLLEGE OR UNIVERSITY</span>   <!-- [EDIT] -->
+      </div>
+      <span class="when">START YEAR – END YEAR</span>           <!-- [EDIT] -->
+    </div>
+  </section>
+
+  <!-- ====================== FOOTER ====================== -->
+  <footer>
+    <span>Built by YOUR NAME</span>                                              <!-- [EDIT] -->
+    <span>Say hello — <a href="mailto:YOUR@EMAIL.COM">YOUR@EMAIL.COM</a></span>  <!-- [EDIT] -->
+  </footer>
+
+</div>
+
+<!-- =====================================================================
+     The only JavaScript on the page: the theme toggle and a soft fade-in.
+     You don't need to edit any of it. If it fails, the page still works.
+     ===================================================================== -->
+<script>
+(function () {
+  var root = document.documentElement;
+  root.classList.add("js");
+
+  /* ---- theme ---- */
+  function systemDark() {
+    return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  }
+  function current() {
+    return root.getAttribute("data-theme") || (systemDark() ? "dark" : "light");
+  }
+  var btn = document.getElementById("themeBtn");
+  if (btn) {
+    btn.addEventListener("click", function () {
+      var next = current() === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      try { localStorage.setItem("theme", next); } catch (e) {}
+    });
+  }
+
+  /* ---- fade sections in as they arrive ---- */
+  var items = document.querySelectorAll(".reveal");
+  if (!("IntersectionObserver" in window)) {
+    for (var i = 0; i < items.length; i++) items[i].classList.add("in");
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e, n) {
+      if (!e.isIntersecting) return;
+      setTimeout(function () { e.target.classList.add("in"); }, n * 70);
+      io.unobserve(e.target);
+    });
+  }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
+  items.forEach(function (el) { io.observe(el); });
+})();
+</script>
+
+</body>
+</html>
